@@ -1,23 +1,20 @@
 class Station
+  attr_reader :trains, :name
 
   def initialize(name)
     @name = name
-    @trains = {}
+    @trains = []
   end
 
-  def accept_train(train_name, train_type)
-    @trains[train_name] = train_type
+  def add_train(train)
+    @trains << train
   end
 
-  def show_trains
-    @trains.each{|k, v| puts "Поезд #{k} типа #{v} находится в данный момент на станции"}
+  def delete_train(train)
+    @trains.delete(train)
   end
 
   def trains_by_type(type)
-    @trains.values.count(type)
-  end
-
-  def send_a_train(name_to_send)
-    @trains.delete(name_to_send)
+    @trains.select {|train| train.type == type}.count
   end
 end
