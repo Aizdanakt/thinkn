@@ -1,6 +1,5 @@
 class Train
-  attr_reader :wagons, :num, :type, :speed, :current_station
-
+  attr_reader :wagons, :num, :type, :speed
   def initialize(num, type, wagons)
     @num = num
     @type = type
@@ -33,16 +32,26 @@ class Train
     @current_station = @route.stations.first
   end
 
-  def next_station
+  def go_next_station
     @current_station = @route.stations[@route.stations.index(@current_station) + 1] #нашли индекс элемента текущей станции и добавили +1, чтобы перейти к следующей
   end
 
-  def previous_station
+  def go_previous_station
     @current_station = @route.stations[@route.stations.index(@current_station) - 1]
   end
 
-  def show_route
-    [@route.stations[@route.stations.index(@current_station) - 1], @current_station,
-     @route.stations[@route.stations.index(@current_station) - 1]]
+  def previous_station
+    return unless @route
+    @route.stations[@route.stations.index(@current_station) - 1]
+  end
+
+  def current_station
+    return unless @route
+    @current_station
+  end
+
+  def next_station
+    return unless @route
+    @route.stations[@route.stations.index(@current_station) +1]
   end
 end
