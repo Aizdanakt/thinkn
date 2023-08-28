@@ -48,13 +48,13 @@ class Train
   end
 
   def add_wagon(wagon)
-    if speed == 0
+    if speed == 0 && type == wagon.type
       @wagons << wagon
     end
   end
 
   def del_wagon(wagon)
-    if speed == 0
+    if speed == 0 && type == wagon.type
       @wagons.delete(wagon)
     end
   end
