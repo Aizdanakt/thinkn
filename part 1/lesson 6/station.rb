@@ -35,5 +35,6 @@ class Station
     errors = []
     errors << puts("Имя не может быть пустым!") if name == ""
     errors << puts("Имя не может быть менее 3 символов!") if name.length < 3
+    raise errors.join(".") unless errors.empty?
   end
 end
