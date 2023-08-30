@@ -1,16 +1,17 @@
 require_relative "instance_counter"
+require_relative "valid_check"
 class Station
   include InstanceCounter
-
+  include ValidCheck
   attr_reader :trains, :name
   @@stations = []
 
   def initialize(name)
     @name = name
     @trains = []
+    validate!
     @@stations << self
     register_instance
-    validate!
   end
 
   def add_train(train)
@@ -28,21 +29,11 @@ class Station
   def self.all
     @@stations
   end
-
-  def valid?
-    begin
-      validate!
-    rescue TypeError => e
-      false
-    else
-      true
-    end
-  end
-
   private
 
   def validate!
-    raise puts "Имя не может быть пустым!" if name == ""
-    raise puts "Имя не может быть менее 3 символов!" if name.length < 3
+    errors = []
+    errors << puts("Имя не может быть пустым!") if name == ""
+    errors << puts("Имя не может быть менее 3 символов!") if name.length < 3
   end
 end

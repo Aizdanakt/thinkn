@@ -1,9 +1,11 @@
-require_relative 'company'
+require_relative "company"
+require_relative "valid_check"
 require_relative "instance_counter"
 
 class Train
   include InstanceCounter
   include Company
+  include ValidCheck
   attr_reader :wagons, :type, :speed, :number
   @@trains = []
   NUMBER_FORMAT = /^[а-яa-z\d]{3}-?[а-яa-z\d]{2}/
@@ -12,9 +14,9 @@ class Train
     @number = number
     @wagons = []
     @speed = 0
+    validate!
     @@trains << self
     register_instance
-    validate!
   end
 
   def add_speed
@@ -73,21 +75,13 @@ class Train
     @@trains.find { |train| train.number == num }
   end
 
-  def valid?
-    begin
-      validate!
-    rescue
-      false
-    else
-      true
-    end
-  end
-
   protected
 
   def validate!
-    raise puts "Номер не может быть пустым!" if number == "" || number.nil?
-    raise puts "Номер должен соответствовать формату!" if number !~ NUMBER_FORMAT
+    errors = []
+    errors << puts("Номер не может быть пустым!") if number == "" || number.nil?
+    errors << puts("Номер должен соответствовать формату!") if number !~ NUMBER_FORMAT
+    raise errors.join(".") unless errors.empty?
   end
 
 end
