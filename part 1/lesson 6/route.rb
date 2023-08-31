@@ -23,8 +23,8 @@ class Route
 
   def validate!
     errors = []
-    errors << puts("Вы не ввели достаточное количество станций!") if stations[0] == "" || stations[1] == ""
-    errors << puts("Название обеих станций должно быть не менее 3 символов") if stations[0].size < 3 || stations[1].size < 3
+    errors << "Вы не ввели достаточное количество станций!" if stations[0] == "" || stations[1] == ""
+    errors << "Название обеих станций должно быть не менее 3 символов" if (stations[0].size < 3 || stations[1].size < 3) && (stations[0] != "" && stations[1] == "")
     raise errors.join(".") unless errors.empty?
   end
 end

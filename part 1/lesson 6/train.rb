@@ -79,9 +79,8 @@ class Train
 
   def validate!
     errors = []
-    errors << puts("Номер не может быть пустым!") if number == "" || number.nil?
-    errors << puts("Номер должен соответствовать формату!") if number !~ NUMBER_FORMAT
+    errors << "Номер не может быть пустым!" if number == "" || number.nil?
+    errors << "Номер должен соответствовать формату!" if number !~ NUMBER_FORMAT && (number != "" && number != nil)
     raise errors.join(".") unless errors.empty?
   end
-
 end

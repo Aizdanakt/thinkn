@@ -66,7 +66,8 @@ class Main
       print "Вы зашли в отдел по созданию станций. Пожалуйста, выберите название "
       name = gets.chomp
       station = Station.new(name)
-    rescue
+    rescue => e
+      puts "#{e.message}"
       retry
     else
       @stations << station
@@ -90,7 +91,8 @@ class Main
     rescue NoMethodError
       puts "Вы не ввели тип создаваемого поезда. Введите"
       retry
-    rescue
+    rescue => e
+      puts "#{e.message}"
       retry
     end
   end

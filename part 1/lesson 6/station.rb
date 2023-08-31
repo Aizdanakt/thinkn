@@ -33,8 +33,8 @@ class Station
 
   def validate!
     errors = []
-    errors << puts("Имя не может быть пустым!") if name == ""
-    errors << puts("Имя не может быть менее 3 символов!") if name.length < 3
-    raise errors.join(".") unless errors.empty?
+    errors << "Имя не может быть пустым!" if name == ""
+    errors << "Имя не может быть менее 3 символов!" if name.length < 3 && name != ""
+    raise errors.join(", ") unless errors.empty?
   end
 end
