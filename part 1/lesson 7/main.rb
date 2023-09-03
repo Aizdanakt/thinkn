@@ -259,7 +259,7 @@ class Main
     station = @stations[gets.chomp.to_i]
     station.trains.each do |train|
       train.show_wagon { |wagon| puts "#{rand(100..999)}, #{wagon.type} #{wagon.type == :passenger ?
-    [wagon.available_seats, wagon.occupied_seats].join(" ") : [wagon.available_seats, wagon.occupied_seats].join(" ")}"}
+    [wagon.free_place, wagon.used_place].join(" ") : [wagon.free_place, wagon.used_place].join(" ")}"}
     end
   end
 
@@ -277,10 +277,10 @@ class Main
     @wagons.each_with_index{|item, index| puts "индекс - #{index} - вагон - #{item.inspect}"}
     wagon = @wagons[gets.chomp.to_i]
     if wagon.type == :passenger
-      wagon.take_seat
+      wagon.take_place
     else
       puts "Выберите какой объем вагоне хотите занять"
-      wagon.take_seat(gets.chomp.to_i)
+      wagon.take_volume(gets.chomp.to_i)
     end
   end
 end
