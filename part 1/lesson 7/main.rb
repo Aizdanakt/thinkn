@@ -277,10 +277,11 @@ class Main
     @wagons.each_with_index{|item, index| puts "индекс - #{index} - вагон - #{item.inspect}"}
     wagon = @wagons[gets.chomp.to_i]
     if wagon.type == :passenger
-      wagon.take_place
+      wagon.free_place == 0 ? puts "Мест нест!" : wagon.take_place
     else
       puts "Выберите какой объем вагоне хотите занять"
-      wagon.take_volume(gets.chomp.to_i)
+      volume = gets.chomp.to_i
+      wagon.free_place < volume ? puts "Свободного места не осталось!" : wagon.take_volume(volume)
     end
   end
 end
