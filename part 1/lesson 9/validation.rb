@@ -1,11 +1,20 @@
 module Validation
+
   def self.included(base)
     base.extend ClassMethods
     base.include InstanceMethods
   end
 
-  module InstanceMethods
+  module ClassMethods
+    attr_accessor :validations
 
+    def validate(number, type, *args)
+      @validations ||= []
+      @validations << { number: number, type: type, args: args}
+    end
+  end
+
+  module InstanceMethods
     def validate!
       self.class.validations.each do |val|
         attr = instance_variable_get("@#{val[:number]}".to_sym)
@@ -19,7 +28,7 @@ module Validation
     end
 
     def format_validate(attr, arg)
-      raise 'Атрибут должен соответствовать формату!' if attr !~ arg
+      raise 'Атрибут должен соответствовать формату!' if attr !~ arg[0]
     end
 
     def type_validate(attr, arg)
@@ -31,15 +40,6 @@ module Validation
       true
     rescue StandardError
       false
-    end
-  end
-
-  module ClassMethods
-    attr_accessor :validations
-
-    def validate(number, type, *args)
-      @validations ||= []
-      @validations << { number: number, type: type, args: args}
     end
   end
 

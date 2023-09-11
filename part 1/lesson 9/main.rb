@@ -94,9 +94,9 @@ class Main
     train = PassengerTrain.new(num) if type == '1'
     @trains << train
     puts "Поезд #{train.inspect} под номером #{train.number} создан"
-  # rescue NoMethodError
-  #   puts 'Вы не ввели тип создаваемого поезда. Введите'
-  #   retry
+  rescue NoMethodError
+    puts 'Вы не ввели тип создаваемого поезда. Введите'
+    retry
   rescue RuntimeError => e
     puts e.message
     retry
